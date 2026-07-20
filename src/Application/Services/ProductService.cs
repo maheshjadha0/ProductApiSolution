@@ -51,7 +51,7 @@ namespace Application.Services
             return _mapper.Map<ProductResponseDto>(product);
         }
 
-        public async Task<bool> UpdateAsync(int id, ProductRequestDto dto)
+        public async Task<bool> UpdateAsync(int id, UpdateProductDto dto)
         {
             var product = await _unitOfWork.Products.GetByIdAsync(id);
 

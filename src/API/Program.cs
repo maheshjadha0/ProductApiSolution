@@ -1,3 +1,4 @@
+using API.Middleware;
 using Application.Interfaces;
 using Application.Mappings;
 using Application.Services;
@@ -5,6 +6,8 @@ using Application.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Data;
+using Infrastructure.Repositories.Implementations;
+using Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -12,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
+builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(
@@ -22,11 +25,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddValidatorsFromAssemblyContaining<ProductRequestValidator>();
 builder.Services.AddScoped<IProductService,ProductService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+//app.UseMiddleware<ExceptionMiddleware>();
+app.MapControllers();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
