@@ -12,17 +12,7 @@ This document outlines approach to implementing a RESTful backend API solution a
 
 Design a RESTfull API solution around Products to perform CRUD operation.
 
- 
 
-## Test Submission
-
-1. Do not submit/upload your code in this repository.
-
-2. **_Create your own public repo_** and share link with us.
-
- 
-
- 
 
 ## Architecture
 
